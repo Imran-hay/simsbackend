@@ -7,13 +7,13 @@ export class AuthController {
 
     constructor(private readonly authService: AuthService){}
 
-    @Get('/findAll') 
+    @Get('/findAll') //test route
     findAll(){
         
         return this.authService.findAll()
     }
 
-    @Post('/create')
+    @Post('/create') //test route
     create(@Body(ValidationPipe) user: CreateUserDto)
     {
         return this.authService.create(user)
@@ -21,7 +21,9 @@ export class AuthController {
 
     @Post('/login')
     async login(@Body(ValidationPipe) createAuthDto: CreateAuthDto): Promise<any> {
-       // return await this.authService.login(loginDto);
+
+        //////
+      
        return createAuthDto
     }
 

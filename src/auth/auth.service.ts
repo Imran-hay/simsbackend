@@ -19,6 +19,11 @@ export class AuthService {
       return this.catModel.find().exec();
     }
 
+    async login()
+    {
+        
+    }
+
 
 
 }
