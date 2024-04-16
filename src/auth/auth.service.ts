@@ -25,7 +25,7 @@ export class AuthService {
     
       if (USER) {
       
-        if (user.password === USER.password) {
+        if (user.password !== USER.password) {
           throw new UnauthorizedException("wrong credentials");
         } else {
           return "Hello";
