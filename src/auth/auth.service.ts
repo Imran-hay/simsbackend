@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException,UnauthorizedException } from '@nestjs/common';
 import { Model } from 'mongoose';
 
 import { InjectModel } from '@nestjs/mongoose';
@@ -20,14 +20,20 @@ export class AuthService {
       return this.userModel.find().exec();
     }
 
-    async login(user:CreateAuthDto) {
-        const USER =  this.userModel.findOne({email: user.email});
-        if(!USER)
-            {
-                throw new NotFoundException('user not found')
-            }
-        return USER
+    async login(user: CreateAuthDto) {
+      const USER = await this.userModel.findOne({ email: user.email });
+    
+      if (USER) {
+      
+        if (user.password === USER.password) {
+          throw new UnauthorizedException("wrong credentials");
+        } else {
+          return "Hello";
+        }
+      } else {
+        throw new NotFoundException("user not found");
       }
+    }
 
 
 
