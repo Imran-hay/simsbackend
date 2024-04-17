@@ -1,18 +1,14 @@
-import { IsEmail ,IsEnum,IsNotEmpty,IsString} from "class-validator"; //npm i class-validator class-transformer --save
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator'; //npm i class-validator class-transformer --save
 
-export class CreateAuthDto{
-    
+export class CreateAuthDto {
+  @IsNotEmpty()
+  @IsEmail()
+  @IsString()
+  email: string;
 
-   
-    @IsNotEmpty()
-    email:string;
-
-    @IsNotEmpty()
-    password:string;
- 
-
-
+  @IsNotEmpty()
+  @IsString()
+  password: string;
 }
-
 
 //export class UpdateUserDto extends PartialType(CreateUserDto){}

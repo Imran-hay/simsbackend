@@ -2,7 +2,9 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 
 export type UserDocument = HydratedDocument<User>;
-
+// eemaul with liikn
+//prfile diavtvate
+// rest
 @Schema()
 export class User {
   @Prop()
@@ -15,7 +17,7 @@ export class User {
   password: string;
 
   @Prop()
-  role: "ADMIN"|"TEACHER"|"STUDENT";
+  role: 'ADMIN' | 'TEACHER' | 'STUDENT';
 
   @Prop()
   salt: string;
