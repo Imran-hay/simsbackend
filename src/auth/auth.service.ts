@@ -12,6 +12,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { JwtService } from '@nestjs/jwt';
 import { tokens } from './types';
+import * as bcrypt from 'bcrypt'
 
 @Injectable()
 export class AuthService {
@@ -20,8 +21,18 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async create(createCatDto: CreateUserDto): Promise<User> {
-    const createdUser = new this.userModel(createCatDto);
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    const salt = await bcrypt.genSalt()
+    const password = createUserDto.password
+    const hash = await bcrypt.hash(password, salt);
+
+    const updatedUser = {
+      ...createUserDto,
+      salt:salt,
+      password:hash
+    };
+
+    const createdUser = new this.userModel(updatedUser);
     return createdUser.save();
   }
 
@@ -54,7 +65,9 @@ export class AuthService {
 
     const userdb = await this.userModel.findOne({ email: user.email });
 
-    if (!userdb || userdb?.token !== user.refresh_token) {
+    const isMatch = await bcrypt.compare(user.refresh_token, userdb?.token);
+
+    if (!userdb || !isMatch) {   //compare using the bcrypt algorithm
       throw new HttpException('Invalid credentials', 401);
     }
     const tokens = await this.getToken(user.sub, user.email, user.role);
@@ -64,9 +77,11 @@ export class AuthService {
   // validate the users existance and password
   async validateUser(email: string, password: string) {
     const user = await this.userModel.findOne({ email });
-
     // for hash password use bcrypt compare method bcrpt.compare(password, user.password)
-    if (user && user?.password === password) {
+    const isMatch = await bcrypt.compare(password, user?.password);
+    console.log("isMatch: " + isMatch)
+
+    if (user && isMatch) {
       const result = { name: user?.name, email: user?.email, role: user?.role };
       return result;
     } else {
@@ -88,9 +103,13 @@ export class AuthService {
   }
   async saveHashedToken(email, refToken) {
     // save hashed token in database
+    const salt = 10;
+const hash = await bcrypt.hash(refToken, salt);
+
+
     await this.userModel.findOneAndUpdate(
       { email },
-      { $set: { token: refToken } },
+      { $set: { token: hash } },  ///here save the hased token
     );
   }
 

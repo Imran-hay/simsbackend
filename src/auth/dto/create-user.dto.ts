@@ -12,11 +12,11 @@ export class CreateUserDto{
     @IsNotEmpty()
     password:string;
     
-    @IsNotEmpty()
+  /*   @IsNotEmpty()
     salt:string;
 
     @IsNotEmpty()
-    token:string;
+    token:string; */
     
     created_at:Date;
 
