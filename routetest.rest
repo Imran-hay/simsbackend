@@ -1,34 +1,34 @@
-GET  http://localhost:3000/
+    GET  http://localhost:3000/
 
 
-###
-POST http://localhost:3000/auth/create
-Content-Type: application/json
+    ###
+    POST http://localhost:3000/auth/create
+    Content-Type: application/json
 
-{
-    "name": "emran hayredin",
-    "password" : "password",
-    "email": "emran@example.com",
-  
-    "role" : "ADMIN"
-}
-### 
-GET  http://localhost:3000/auth/findAll
-Content-Type: application/json
+    {
+        "name": "emran hayredin",
+        "password" : "password",
+        "email": "emran@example.com",
+    
+        "role" : "ADMIN"
+    }
+    ### 
+    GET  http://localhost:3000/auth/findAll
+    Content-Type: application/json
 
-### sign in
-POST http://localhost:3000/auth/signin
-Content-Type: application/json
+    ### sign in
+    POST http://localhost:3000/auth/signin
+    Content-Type: application/json
 
-{
-    "email": "emran@example.com",
-    "password" : "password"
-}
-###
-POST  http://localhost:3000/auth/refresh-token
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlbXJhbiBoYXlyZWRpbiIsImVtYWlsIjoiZW1yYW5AZXhhbXBsZS5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MTM0NTMyNzMsImV4cCI6MTcxNDA1ODA3M30.5euEG3AWPNexrc7tWy_SnZCMWcQZWpXeDRvIQeA4K44
+    {
+        "email": "emran@example.com",
+        "password" : "password"
+    }
+    ###
+    POST  http://localhost:3000/auth/refresh-token
+    Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlbXJhbiBoYXlyZWRpbiIsImVtYWlsIjoiZW1yYW5AZXhhbXBsZS5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MTM0NTMyNzMsImV4cCI6MTcxNDA1ODA3M30.5euEG3AWPNexrc7tWy_SnZCMWcQZWpXeDRvIQeA4K44
 
-###
-POST  http://localhost:3000/auth/logout
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlbXJhbiBoYXlyZWRpbiIsImVtYWlsIjoiZW1yYW5AZXhhbXBsZS5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MTM0NTI5OTQsImV4cCI6MTcxMzQ1NjU5NH0.aAga8B5wUI2cuX7cAcgwE-FFo6gmBSzSJnjIItqCtwE
+    ###
+    POST  http://localhost:3000/auth/logout
+    Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlbXJhbiBoYXlyZWRpbiIsImVtYWlsIjoiZW1yYW5AZXhhbXBsZS5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MTM0NTI5OTQsImV4cCI6MTcxMzQ1NjU5NH0.aAga8B5wUI2cuX7cAcgwE-FFo6gmBSzSJnjIItqCtwE
 
