@@ -21,6 +21,24 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
+  async handleUserRegistration(createUserDto:CreateUserDto): Promise<User>
+  {
+    console.log(createUserDto.email)
+    const salt = await bcrypt.genSalt()
+    const password = createUserDto.password
+    const hash = await bcrypt.hash(password, salt);
+
+    const updatedUser = {
+      ...createUserDto,
+      salt:salt,
+      password:hash
+    };
+
+    const createdUser = new this.userModel(updatedUser);
+    return createdUser.save();
+
+  }
+
   async create(createUserDto: CreateUserDto): Promise<User> {
     const salt = await bcrypt.genSalt()
     const password = createUserDto.password
@@ -48,7 +66,13 @@ export class AuthService {
     }
     const tokens = await this.getToken(user.name, user.email, user.role);
     await this.saveHashedToken(user.email, tokens.refresh_token);
-    return tokens;
+    return {
+      ...tokens,
+      name:user.name,
+      email:user.email,
+      role:user.role
+
+    };
   }
   // remove the hashed token from the database
   async logout(email) {

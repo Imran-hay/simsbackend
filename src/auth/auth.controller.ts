@@ -11,9 +11,18 @@ import { CreateAuthDto } from './dto/create-auth.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { AtAuthGuad, RtAuthGuard } from './guard';
+import { EventPattern, Payload } from '@nestjs/microservices';
+
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
+
+  @EventPattern('user-registered')
+  handleOrderPlaced(@Payload() user:CreateUserDto) {
+    return this.authService.handleUserRegistration(user);
+  }
+
+
 
   @Get('/findAll') //test route
   findAll() {
