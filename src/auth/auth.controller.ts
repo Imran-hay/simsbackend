@@ -47,6 +47,14 @@ export class AuthController {
     const user = req.user;
     return await this.authService.logout(user.email);
   }
+
+  @UseGuards(AtAuthGuad)
+  @Get('profile')
+  async getProfile(@Req() req: any) {
+    const user = req.user;
+    return await this.authService.getProfile(user.email);
+  }
+
   @UseGuards(RtAuthGuard)
   @Post('/refresh-token')
   async refreshToken(@Req() req: any) {

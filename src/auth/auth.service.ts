@@ -84,6 +84,17 @@ export class AuthService {
     return 'Logged out successfully!';
   }
 
+  async getProfile(email) {
+    const user = await this.userModel.findOne({email:email})
+     
+    if (!user) throw new HttpException('Invalid credentials', 401);
+    return {
+    email:user.email,
+    role:user.role,
+    name:user.name
+    };
+  }
+
   async refreshToken(user) {
     //check data base for the existance of the hashed token
 

@@ -13,7 +13,7 @@ console.log(`${process.env.MONGOUSER}`)
     ConfigModule.forRoot({ isGlobal: true }),
     AuthModule,
     MongooseModule.forRoot(
-      `${process.env.MONGODBURI}`,
+      `mongodb+srv://${process.env.MONGOUSER}:${process.env.MONGOPASS}@cluster0.gpom6d9.mongodb.net/${process.env.MONGODB}?retryWrites=true&w=majority`,
     ),
   ],
   controllers: [AppController],
